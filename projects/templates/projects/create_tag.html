@@ -1,0 +1,19 @@
+{% extends "projects/base.html" %}
+
+{% block body %}
+  <h1>Create</h1>
+  <form action="{% url 'projects:create_tag' %}" method="post" onsubmit="return formConfirmation()">
+    {% csrf_token %}
+    {{form}}
+    <input type='hidden' name = "next" value = "{{next}}">
+    <input type="submit" class = "btn btn-info" value="Submit"></input>
+  </form>
+  <button class="btn btn-danger" onclick="history.back()">Cancel</button>
+
+  <script>
+    function formConfirmation() {
+      var conf = confirm('Please confirm the following information. Tags cannot be deleted once made.');
+      return conf;
+    };
+  </script>
+{% endblock %}

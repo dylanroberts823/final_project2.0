@@ -1,0 +1,64 @@
+{% extends base %}
+
+{% block body %}
+  <h1>Home</h1>
+  <form action="{% url 'projects:home' %}" method="post">
+    {% csrf_token %}
+    {{form}}
+  </form>
+  {% for project in projects %}
+    <div class="{{project.status.cardClass.cardClass}} project">
+      <div class="card-body">
+          {{project.name}}<br>
+          Tags:
+            {% for tag in project.tags.all %}
+              {{tag}}
+            {% endfor %}
+        <a href="{% url 'projects:manage_project' project.id %}" class="float-right btn btn-primary">More</a>
+        <button class="float-right btn btn-secondary hide">Hide</button>
+      </div>
+    </div>
+  {% endfor %}
+  <style>
+      @keyframes hide {
+          0% {
+              opacity: 1;
+              height: 100%;
+              line-height: 100%;
+          }
+          75% {
+              opacity: 0;
+              height: 100%;
+              line-height: 100%;
+          }
+          85% {
+            opacity: 0;
+            height: 0px;
+            line-height: 0px;
+          }
+          100% {
+            opacity: 0;
+            height: 0px;
+            line-height: 0px;
+          }
+      }
+
+      .project {
+          animation-name: hide;
+          animation-duration: 1s;
+          animation-fill-mode: forwards;
+          animation-play-state: paused;
+      }
+  </style>
+  <script>
+  document.addEventListener('click', event => {
+    const element = event.target;
+    if (element.classList.contains('hide')) {
+      element.parentElement.parentElement.style.animationPlayState = 'running';
+      element.parentElement.parentElement.addEventListener('animationend', () => {
+        element.parentElement.parentElement.remove();
+      });
+    };
+  });
+  </script>
+{% endblock %}

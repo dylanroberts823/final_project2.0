@@ -1,0 +1,31 @@
+{% extends "projects/base.html" %}
+{% block body %}
+  <h1>My Requests</h1>
+  <h2> Received Requests </h2>
+    {% for request in received_requests %}
+    <div class="{{request.status.cardClass.cardClass}}">
+      <div class="card-body">
+          {{request}}<br>
+          Notes: {{request.note}}
+          {% if request.status.status == "Pending" %}
+            <a class="float-right btn btn-primary modify"  href="{% url 'projects:deny' request.id %}">Deny</a>
+            <a class="float-right btn btn-primary modify"  href="{% url 'projects:approve' request.id %}">Approve</a>
+          {% endif %}
+      </div>
+    </div>
+    {% empty %}
+    No Received Requests
+    {% endfor %}
+  <h2> Sent Requests </h2>
+    {% for request in sent_requests %}
+    <div class="{{request.status.cardClass.cardClass}}">
+      <div class="card-body">
+          {{request}}<br>
+          Notes:
+            {{request.note}}
+      </div>
+    </div>
+    {% empty %}
+      No sent requests
+    {% endfor %}
+{% endblock %}

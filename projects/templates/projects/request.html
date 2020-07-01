@@ -1,0 +1,9 @@
+{% extends "projects/base.html" %}
+
+{% block body %}
+<form action="{% url 'projects:request' project.id %}" method="post">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" value="Send Request"></input>
+</form>
+{% endblock %}

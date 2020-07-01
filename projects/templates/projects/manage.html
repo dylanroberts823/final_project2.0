@@ -1,0 +1,29 @@
+{% extends "projects/base.html" %}
+
+{% block body %}
+  <h1>MyProjects</h1>
+  <h2>Managing</h2>
+  {% for project in managed_projects %}
+  <div class="{{project.status.cardClass.cardClass}}">
+    <div class="card-body">
+      <h5 class = "card-title"> {{project.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{project.status}}</h6>
+      Description: {{project.description}} <br>
+      Tags: {% for tag in project.tags.all %}#{{tag}} {% endfor %}
+      <a href="{% url 'projects:manage_project' project.id%}" class="float-right btn btn-primary">Edit</a>
+    </div>
+  </div>
+  {% endfor %}
+  <h2>Contributing</h2>
+  {% for project in contributed_projects %}
+  <div class="{{project.status.cardClass.cardClass}}">
+    <div class="card-body">
+      <h5 class = "card-title"> {{project.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{project.status}}</h6>
+      Description: {{project.description}} <br>
+      Tags: {% for tag in project.tags.all %}#{{tag}} {% endfor %}
+      <a href="{% url 'projects:manage_project' project.id%}" class="float-right btn btn-primary">More</a>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "projects/base.html" %}
+
+{% block body %}
+  <h1>Create</h1>
+  <form action="{% url 'projects:create' %}" method="post" onsubmit="return formConfirmation()">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{field.label}} <br>
+        {{field}}<br>
+        <small class="text=muted">{{field.help_text}}</small>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {% if field.label == "Tags" %}
+          <a href="{% url 'projects:create_tag'%}" class = "btn btn-success">Create Tag</a>
+        {% endif %}
+      </p>
+    {% endfor %}
+    <input type="submit" class = "btn btn-info" value="Submit"></input>
+  </form>
+  <button class="btn btn-danger" onclick="history.back()">Cancel</button>
+
+  <script>
+    function formConfirmation() {
+      var conf = confirm('Please confirm the following information. Projects cannot be deleted once made.');
+      return conf;
+    };
+  </script>
+{% endblock %}

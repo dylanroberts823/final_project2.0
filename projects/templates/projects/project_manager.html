@@ -1,0 +1,23 @@
+{% extends base %}
+{% block body %}
+<form action = "{% url 'projects:modify_project' project.id %}" method="post">
+  {% csrf_token %}
+  {%for field in form %}
+    <p>
+      {{ field.label_tag}}<br>
+      {{field}}
+      {% if field.help_text %}
+        <small style="color: grey"> {{field.help_text}} </small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+      {% if field.label == "Tags" %}
+        <a href="{% url 'projects:create_tag'%}" class = "btn btn-success">Create Tag</a>
+      {% endif %}
+    </p>
+  {% endfor %}
+  <input type="Submit" class = "btn btn-info" value = "Submit"></input>
+</form>
+<button class="btn btn-danger" onclick="history.back()">Cancel</button>
+{% endblock %}
