@@ -1,0 +1,29 @@
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+    }
+    85% {
+      opacity: 0;
+      height: 0px;
+      line-height: 0px;
+    }
+    100% {
+      opacity: 0;
+      height: 0px;
+      line-height: 0px;
+    }
+}
+
+.project {
+    animation-name: hide;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}

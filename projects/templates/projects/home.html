@@ -1,7 +1,8 @@
 {% extends base %}
 {% block head %}
 {% load static %}
-<script src = "{% static 'js/hide_content.js' %}"></script>
+<script src = "{% static 'projects/js/hide_content.js' %}"></script>
+<script src = "{% static 'projects/css/hide_content.css' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -64,15 +65,4 @@
           animation-play-state: paused;
       }
   </style>
-  <script>
-  document.addEventListener('click', event => {
-    const element = event.target;
-    if (element.classList.contains('hide')) {
-      element.parentElement.parentElement.style.animationPlayState = 'running';
-      element.parentElement.parentElement.addEventListener('animationend', () => {
-        element.parentElement.parentElement.remove();
-      });
-    };
-  });
-  </script>
 {% endblock %}
