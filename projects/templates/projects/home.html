@@ -1,4 +1,8 @@
 {% extends base %}
+{% block head %}
+{% load static %}
+<script src = "{% static 'js/hide_content.js' %}"></script>
+{% endblock %}
 
 {% block body %}
   <h1>Home</h1>
@@ -12,10 +16,20 @@
           {{project.name}}<br>
           Tags:
             {% for tag in project.tags.all %}
-              {{tag}}
+              #{{tag}}
             {% endfor %}
-        <a href="{% url 'projects:manage_project' project.id %}" class="float-right btn btn-primary">More</a>
+        <button class="btn btn-primary float-right" data-toggle="collapse" data-target="#{{project.id}}_collapse" aria-expanded="true" aria-controls="{{project.id}}_collapse">
+            More
+        </button>
         <button class="float-right btn btn-secondary hide">Hide</button>
+      </div>
+    </div>
+    <div id="{{project.id}}_collapse" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card card-body">
+        <h6 class="card-subtitle mb-2 text-muted">{{project.status}}</h6>
+        Manager: {{project.manager}} <br>
+        Description: {{project.description}} <br>
+        <a href="{% url 'projects:request' project.id %}" class="float-right btn btn-primary">Get Involved</a>
       </div>
     </div>
   {% endfor %}
